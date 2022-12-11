@@ -3,7 +3,7 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - $(aws ecr get-login-password --region eu-west-2)
+      - aws ecr get-login-password --region eu-west-2 | docker login --password-stdin --username AWS "823518405228.dkr.ecr.eu-west-2.amazonaws.com/lesson-hub-frontend-staging"
   build:
     commands:
       - docker build -t lesson-hub-pwa-frontend-staging .
