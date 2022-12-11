@@ -1,0 +1,16 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - $(aws ecr get-login --no-include-email --region eu-west-2)
+  build:
+    commands:
+      - docker build -t lesson-hub-pwa-frontend-staging .
+      - docker tag lesson-hub-pwa-frontend-staging 823518405228.dkr.ecr.eu-west-2.amazonaws.com/lesson-hub-frontend-staging
+  post_build:
+    commands:
+      - docker push lesson-hub-pwa-frontend-staging 823518405228.dkr.ecr.eu-west-2.amazonaws.com/lesson-hub-frontend-staging
+      - printf '[{"name":"td-lesson-hub-pwa-frontend-staging","imageUri":"%s"}]' 823518405228.dkr.ecr.eu-west-2.amazonaws.com/lesson-hub-frontend-staging > imagedefinitions.json
+artifacts:
+  files: imagedefinitions.json
