@@ -11,6 +11,6 @@ phases:
   post_build:
     commands:
       - docker push 823518405228.dkr.ecr.eu-west-2.amazonaws.com/lesson-hub-frontend-staging
-      - printf '[{"name":"td-lesson-hub-pwa-frontend-staging","imageUri":"%s"}]' 823518405228.dkr.ecr.eu-west-2.amazonaws.com/lesson-hub-frontend-staging > imagedefinitions.json
+      - printf '[{"name":"td-lesson-hub-pwa-frondent-staging","imageUri":"%s"}]' 823518405228.dkr.ecr.eu-west-2.amazonaws.com/lesson-hub-frontend-staging > imagedefinitions.json
 artifacts:
   files: imagedefinitions.json
