@@ -10,7 +10,7 @@ export default function Home(props: MainLayoutProps) {
     return (
         <MainLayout {...props}>
             <h1>
-                <FormattedMessage id="page.index.welcome" values={{appName: 'Lessons-hub'}}/>
+                <FormattedMessage id="page.index.welcome" values={{appName: process.env.APP_NAME}}/>
             </h1>
         </MainLayout>
     )

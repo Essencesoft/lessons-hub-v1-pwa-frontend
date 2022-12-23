@@ -9,12 +9,12 @@ import {LangDirection} from "../meta/lang";
 function getDirection(locale : string) : LangDirection{
   if (locale.startsWith('ar')) {
     return {
-      direction: "rtl"
+      direction: 'rtl'
     };
   }
 
   return {
-    direction: "ltr"
+    direction: 'ltr'
   };
 }
 
