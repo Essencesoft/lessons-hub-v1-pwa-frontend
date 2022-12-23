@@ -1,0 +1,5 @@
+{
+  "layout.head.description": "Uno strumento che permette di svolgere lezioni multimodali ai professori",
+  "layout.head.title": "Lessons-hub: un semplice strumento per i professori",
+  "page.index.welcome": "Benvenuti su {appName}"
+}
