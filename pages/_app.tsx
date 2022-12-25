@@ -1,31 +1,43 @@
 import '../styles/globals.scss'
-import type { AppProps } from 'next/app'
+import type {AppProps} from 'next/app'
 import lang from "../lang";
 import {IntlProvider} from "react-intl";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import {LangDirection} from "../meta/lang";
+import {getDirection, parseLocale, DEFAULT_LOCALE, DEFAULT_LANG_DIRECTION} from "../meta/lang";
+import {ThemeProvider} from "react-bootstrap";
 
-function getDirection(locale : string) : LangDirection{
-  if (locale.startsWith('ar')) {
-    return {
-      direction: 'rtl'
-    };
-  }
+export default function App({Component, pageProps}: AppProps) {
+    const routerObj = useRouter();
 
-  return {
-    direction: 'ltr'
-  };
-}
+    const [locale, setLocale] = useState(DEFAULT_LOCALE)
+    const [langDirection, setLangDirection] = useState(DEFAULT_LANG_DIRECTION)
 
-export default function App({ Component, pageProps }: AppProps) {
-  const routerObj = useRouter();
+    useEffect(() => {
+        setLocale(parseLocale(routerObj.locale))
+    }, [
+        routerObj
+    ])
 
-  const locale = routerObj.locale || 'en'
+    useEffect(() => {
+        setLangDirection(getDirection(locale))
+    }, [
+        locale
+    ])
 
-  return (
-    <IntlProvider locale={locale} messages={lang[locale]}>
-      <Component {...pageProps} locale={locale} langDirection={getDirection(locale)}/>
-    </IntlProvider>
-  )
+    useEffect(() => {
+        if(langDirection.rtl){
+            require('bootstrap/dist/css/bootstrap.rtl.min.css')
+        }
+    }, [
+        langDirection
+    ])
+
+    return (
+        <IntlProvider locale={locale} messages={lang[locale]}>
+            <ThemeProvider dir={langDirection.direction}>
+                <Component {...pageProps} locale={locale} langDirection={langDirection}/>
+            </ThemeProvider>
+        </IntlProvider>
+    )
 }
